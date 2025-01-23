@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Dashboard</h2>
+<p>Income: {{ income }}</p>
+<p>Expenses: {{ expenses }}</p>
+<p>Balance: {{ balance }}</p>
+<a href="{% url 'add_transaction' %}">Add Transaction</a>
+{% endblock %}

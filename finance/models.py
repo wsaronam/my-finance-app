@@ -1,16 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
+
+
+
 
 # Create your models here.
-class Transaction(models.Model):
-    CATEGORY_CHOICES = [
-        ('test1', 'Test1'),
-        ('test2', 'Test2'),
-    ]
+class Category(models.Model):
+    name = models.CharField(max_length=50)
 
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    def __str__(self):
+        return self.name
+
+
+class Transaction(models.Model):
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(blank=True)
     date = models.DateField()
+    is_income = models.BooleanField(default=False)
 
     def __str__(self):
-        return "model test"
+        return f"{self.amount} - {self.category}"
