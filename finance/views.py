@@ -3,8 +3,20 @@ from django.db import models
 from .models import Transaction
 from .forms import TransactionForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
 
 
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()  # saves the user to db
+            return redirect('login')  # redirects the user to the login screen
+    else:
+        form = UserCreationForm()
+    return render(request, 'registration/signup.html', {'form': form})
 
 
 @login_required
@@ -14,7 +26,7 @@ def dashboard(request):
     expenses = transactions.filter(is_income=False).aggregate(models.Sum('amount'))['amount__sum'] or 0
     balance = income - expenses
 
-    return render(request, 'tracker/dashboard.html', {
+    return render(request, 'dashboard.html', {
         'transactions': transactions,
         'income': income,
         'expenses': expenses,
@@ -33,7 +45,7 @@ def add_transaction(request):
             return redirect('dashboard')
     else:
         form = TransactionForm()
-    return render(request, 'tracker/add_transaction.html', {'form': form})
+    return render(request, 'finance/templates/add_transaction.html', {'form': form})
 
 
 def home(request):
