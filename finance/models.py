@@ -14,8 +14,18 @@ class Category(models.Model):
 
 class Transaction(models.Model):
 
+    CATEGORY_CHOICES = [
+        ('food', 'Food'),
+        ('rent', 'Rent'),
+        ('entertainment', 'Entertainment'),
+        ('utilities', 'Utilities'),
+        ('transport', 'Transport'),
+        ('health', 'Health'),
+        ('other', 'Other'),
+    ]
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey(Category, choices=CATEGORY_CHOICES, on_delete=models.SET_NULL, null=True)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(blank=True)
     date = models.DateField()

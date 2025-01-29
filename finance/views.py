@@ -45,7 +45,7 @@ def add_transaction(request):
             return redirect('dashboard')
     else:
         form = TransactionForm()
-    return render(request, 'finance/templates/add_transaction.html', {'form': form})
+    return render(request, 'add_transaction.html', {'form': form})
 
 
 def home(request):
