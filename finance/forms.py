@@ -14,3 +14,6 @@ class TransactionForm(forms.ModelForm):
             "date",
             "is_income"
         ]
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+        }

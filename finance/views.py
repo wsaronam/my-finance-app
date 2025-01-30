@@ -42,7 +42,10 @@ def add_transaction(request):
             transaction = form.save(commit=False)
             transaction.user = request.user
             transaction.save()
+            print("Transaction saved!")  # for debugging
             return redirect('dashboard')
+        else:
+            print("Form is not valid:", form.errors)  # for debugging
     else:
         form = TransactionForm()
     return render(request, 'add_transaction.html', {'form': form})
