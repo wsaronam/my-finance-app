@@ -3,6 +3,8 @@
     flex-direction: column;
     width: 300px;
     margin: auto;
+    align-items: flex-start;
+    gap: 10px;
 }
 
 .form-group {
@@ -15,4 +17,11 @@
     padding: 8px;
     border: none;
     cursor: pointer;
+}
+
+.error-message {
+    color: red;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 5px;
 }
