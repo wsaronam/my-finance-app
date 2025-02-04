@@ -4,6 +4,7 @@ from .models import Transaction
 from .forms import TransactionForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
+import json
 
 
 
@@ -21,16 +22,28 @@ def signup(request):
 
 @login_required
 def dashboard(request):
-    transactions = Transaction.objects.filter(user=request.user)
+    transactions = Transaction.objects.filter(user=request.user).order_by('date')
     income = transactions.filter(is_income=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
     expenses = transactions.filter(is_income=False).aggregate(models.Sum('amount'))['amount__sum'] or 0
     balance = income - expenses
+
+    # for line graph
+    dates = []
+    balances = []
+    runningBalance = 0
+
+    for transaction in transactions:
+        runningBalance += transaction.amount if transaction.is_income else -transaction.amount
+        dates.append(transaction.date.strftime("%Y-%m-%d"))
+        balances.append(float(runningBalance))
 
     return render(request, 'dashboard.html', {
         'transactions': transactions,
         'income': income,
         'expenses': expenses,
         'balance': balance,
+        'dates': json.dumps(dates),
+        'balances': json.dumps(balances),
     })
 
 
