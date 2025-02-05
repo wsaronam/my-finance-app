@@ -7,12 +7,13 @@
 <p>Income: {{ income }}</p>
 <p>Expenses: {{ expenses }}</p>
 <p>Balance: {{ balance }}</p>
-<p>Dates: {{ dates }}</p> <!-- delete this later, for debugging -->
-<p>Balances: {{ balances }}</p> <!-- delete this later, for debugging -->
 <a href="{% url 'add_transaction' %}">Add Transaction</a>
 
 
-<canvas id="balanceChart" style="width: 100%; height: 400px;"></canvas>
+<div style="width: 800px; height: 400px; overflow: hidden;">
+    <canvas id="balanceChart"></canvas>
+</div>
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -21,9 +22,6 @@
         // convert the django variable data into usable JS arrays
         let dates = JSON.parse('{{ dates|escapejs }}');
         let balances = JSON.parse('{{ balances|escapejs }}');
-
-        console.log("Dates:", dates);  // delete this later - for debugging
-        console.log("Balances:", balances);  // delete this later - for debugging
 
         // prevent infinite loading charts
         if (window.balanceChart instanceof Chart) {

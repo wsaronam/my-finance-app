@@ -5,6 +5,8 @@ from .forms import TransactionForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 import json
+from decimal import Decimal
+from collections import defaultdict
 
 
 
@@ -23,18 +25,24 @@ def signup(request):
 @login_required
 def dashboard(request):
     transactions = Transaction.objects.filter(user=request.user).order_by('date')
-    income = transactions.filter(is_income=True).aggregate(models.Sum('amount'))['amount__sum'] or 0
-    expenses = transactions.filter(is_income=False).aggregate(models.Sum('amount'))['amount__sum'] or 0
+    income = transactions.filter(is_income=True).aggregate(models.Sum('amount'))['amount__sum'] or Decimal(0)
+    expenses = transactions.filter(is_income=False).aggregate(models.Sum('amount'))['amount__sum'] or Decimal(0)
     balance = income - expenses
 
+    # Group transactions by date
+    transactionsDaily = defaultdict(Decimal)  # Dictionary to hold summed values per date
+    for transaction in transactions:
+        transactionsDaily[transaction.date.strftime("%Y-%m-%d")] += transaction.amount if transaction.is_income else -transaction.amount
+    
     # for line graph
     dates = []
     balances = []
-    runningBalance = 0
+    runningBalance = Decimal(0)
 
-    for transaction in transactions:
-        runningBalance += transaction.amount if transaction.is_income else -transaction.amount
-        dates.append(transaction.date.strftime("%Y-%m-%d"))
+    datesSorted = sorted(transactionsDaily.keys())
+    for date in datesSorted:
+        runningBalance += transactionsDaily[date]
+        dates.append(date)
         balances.append(float(runningBalance))
 
     return render(request, 'dashboard.html', {
@@ -55,7 +63,6 @@ def add_transaction(request):
             transaction = form.save(commit=False)
             transaction.user = request.user
             transaction.save()
-            print("Transaction saved!")  # for debugging
             return redirect('dashboard')
         else:
             print("Form is not valid:", form.errors)  # for debugging
