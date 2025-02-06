@@ -1,9 +1,16 @@
+.main-div {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    flex-direction: column;
+}
+
 .transaction-form {
     display: flex;
     flex-direction: column;
     width: 300px;
     margin: auto;
-    align-items: flex-start;
     gap: 10px;
 }
 
@@ -16,6 +23,7 @@
     color: white;
     padding: 8px;
     border: none;
+    border-radius: 15px;
     cursor: pointer;
 }
 
@@ -32,4 +40,13 @@
     width: 100%;
     height: 400px;
     display: block;
+}
+
+.add-btn {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.back-btn {
+    margin-top: 20px;
 }

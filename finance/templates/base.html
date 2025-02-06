@@ -9,20 +9,20 @@
     <title>Finance Tracker</title>
 </head>
 <body>
-    <header>
-        <h1>Finance Tracker</h1>
-    </header>
     <main>
-        {% if user.is_authenticated %}
+        <div class="main-div">
+            <h1>Finance Tracker</h1>
+            {% if user.is_authenticated %}
             <p>Welcome, {{ user.username }}!</p>
-        {% endif %}
-        <br>
-        {% block content %}{% endblock %}
-        <br>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <button type="submit">Logout</button>
-        </form>
+            {% endif %}
+            <br>
+            {% block content %}{% endblock %}
+            <br>
+            <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        </div>
     </main>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </body>
