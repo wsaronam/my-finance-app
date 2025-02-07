@@ -4,27 +4,36 @@
 </head>
 
 
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li class="{{ message.tags }}">{{ message }}</li>
-        {% endfor %}
-    </ul>
-{% endif %}
+<div class="login-page">
+    <h1>Finance Tracker</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
 
-<form method="post">
-    {% csrf_token %}
-    <label for="username">Username:</label>
-    <input type="text" name="username" id="username" required>
-    <label for="password">Password:</label>
-    <input type="password" name="password" id="password" required>
-    <button type="submit">Log In</button>
-</form>
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        <div>
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required><br>
+        </div>
+        <div class="login-btn">
+            <button type="submit">Log In</button>
+        </div>
+    </form>
 
-<p>If you would like to make an account: <a href="{% url 'signup' %}">Sign Up!</a></p>
+    <p>If you would like to make an account: <a href="{% url 'signup' %}">Sign Up!</a></p>
 
 
-{% if form.errors %}
-    <p class="error-message">Log-in information is incorrect. Please try again.</p>
-{% endif %}
+    {% if form.errors %}
+        <p class="error-message">Log-in information is incorrect. Please try again.</p>
+    {% endif %}
+</div>

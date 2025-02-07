@@ -50,3 +50,37 @@
 .back-btn {
     margin-top: 20px;
 }
+
+.login-page {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    flex-direction: column;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.login-btn {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+    margin-top: 15px;
+}
+
+.signup-form {
+    display: block; 
+    text-align: left; 
+}
+
+.signup-btn {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+    margin-top: 15px;
+}
