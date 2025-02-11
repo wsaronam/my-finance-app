@@ -74,13 +74,26 @@
 }
 
 .signup-form {
-    display: block; 
-    text-align: left; 
+    display: flex; 
+    flex-direction: column;
+    text-align: flex-end; 
+}
+
+.signup-form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 10px;
 }
 
 .signup-btn {
     display: flex;
     justify-content: center;
     width: 100%; 
-    margin-top: 15px;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    display: block;
 }
