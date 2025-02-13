@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db import models
+from django.db.models import Sum
 from .models import Transaction
 from .forms import TransactionForm
 from django.contrib.auth.decorators import login_required
@@ -45,6 +46,33 @@ def dashboard(request):
         dates.append(date)
         balances.append(float(runningBalance))
 
+    # get categories for pie chart
+    category_expenses = (
+        transactions.filter(is_income=False)
+        .values("category")
+        .annotate(total=Sum("amount"))
+        .order_by("-total")
+    )
+    
+    categories = [entry['category'] for entry in category_expenses]
+    expenses = [float(entry['total']) for entry in category_expenses]
+
+
+    # get income vs expenses per month
+    monthlyData = transactions.values('date__month', 'date__year').annotate(
+        total_income=Sum('amount', filter=models.Q(is_income=True)),
+        total_expense=Sum('amount', filter=models.Q(is_income=False))
+    ).order_by('date__year', 'date__month')
+
+    vsMonths = []
+    vsIncomes = []
+    vsExpenses = []
+    for data in monthlyData:
+        month_label = f"{data['date__year']}-{str(data['date__month']).zfill(2)}"
+        vsMonths.append(month_label)
+        vsIncomes.append(float(data['total_income'] or 0))
+        vsExpenses.append(float(data['total_expense'] or 0))
+
     return render(request, 'dashboard.html', {
         'transactions': transactions,
         'income': income,
@@ -52,6 +80,11 @@ def dashboard(request):
         'balance': balance,
         'dates': json.dumps(dates),
         'balances': json.dumps(balances),
+        'categories': json.dumps(categories),
+        'expenses': json.dumps(expenses),
+        'vsMonths': json.dumps(vsMonths),
+        'vsIncomes': json.dumps(vsIncomes),
+        'vsExpenses': json.dumps(vsExpenses),
     })
 
 

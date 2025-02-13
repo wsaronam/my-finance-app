@@ -9,19 +9,36 @@
 <p>Balance: {{ balance }}</p>
 <a href="{% url 'add_transaction' %}" class="add-btn">Add Transaction</a>
 
-
-<div style="width: 800px; height: 400px; overflow: hidden;">
-    <canvas id="balanceChart"></canvas>
+<div>
+    <div style="width: 800px; height: 400px; overflow: hidden;">
+        <canvas id="balanceChart"></canvas>
+    </div>
+    <div style="width: 800px; height: 400px; overflow: hidden;">
+        <canvas id="pieChart"></canvas>
+    </div>
+    <div style="width: 800px; height: 400px; overflow: hidden;">
+        <canvas id="vsChart"></canvas>
+    </div>
 </div>
+
 
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         var ctx = document.getElementById('balanceChart').getContext('2d');
+        var ctx2 = document.getElementById('pieChart').getContext('2d');
+        var ctx3 = document.getElementById('vsChart').getContext('2d');
 
         // convert the django variable data into usable JS arrays
         let dates = JSON.parse('{{ dates|escapejs }}');
         let balances = JSON.parse('{{ balances|escapejs }}');
+
+        let categories = JSON.parse('{{ categories|escapejs }}');
+        let expenses = JSON.parse('{{ expenses|escapejs }}');
+
+        let vsMonths = JSON.parse('{{ vsMonths|escapejs }}');
+        let vsIncomes = JSON.parse('{{ vsIncomes|escapejs }}');
+        let vsExpenses = JSON.parse('{{ vsExpenses|escapejs }}');
 
         // prevent infinite loading charts
         if (window.balanceChart instanceof Chart) {
@@ -47,6 +64,61 @@
                 scales: {
                     x: { title: { display: true, text: 'Date' } },
                     y: { title: { display: true, text: 'Balance ($)' } }
+                }
+            }
+        });
+
+
+        window.pieChart = new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: categories,
+                datasets: [{
+                    data: expenses,
+                    backgroundColor: [
+                        'red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+
+        window.vsChart = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: vsMonths,  // x-axis: months
+                datasets: [
+                    {
+                        label: 'Income',
+                        data: vsIncomes,
+                        backgroundColor: 'rgba(0, 128, 0, 0.7)', // green
+                        borderColor: 'green',
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Expenses',
+                        data: vsExpenses,
+                        backgroundColor: 'rgba(255, 0, 0, 0.7)', // red
+                        borderColor: 'red',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: { title: { display: true, text: 'Month' } },
+                    y: { title: { display: true, text: 'Amount ($)' }, beginAtZero: true }
+                },
+                plugins: {
+                    legend: { position: 'top' }
                 }
             }
         });
