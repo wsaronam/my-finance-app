@@ -10,6 +10,7 @@
 </head>
 <body>
     <main>
+        <button id="darkModeToggle" class="toggle-dark-mode">🌙 Dark Mode</button>
         <div class="main-div">
             <h1>Finance Tracker</h1>
             {% if user.is_authenticated %}
@@ -25,5 +26,34 @@
         </div>
     </main>
     <link rel="stylesheet" href="{% static 'style.css' %}">
+
+
+    <!-- script for dark mode toggle -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const toggleButton = document.getElementById('darkModeToggle');
+            const body = document.body;
+    
+            // check if dark mode was enabled previously
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                body.classList.add('dark-mode');
+                toggleButton.textContent = "☀️ Light Mode";
+            }
+    
+            toggleButton.addEventListener('click', function () {
+                body.classList.toggle('dark-mode');
+    
+                // save mode in localStorage
+                if (body.classList.contains('dark-mode')) {
+                    localStorage.setItem('darkMode', 'enabled');
+                    toggleButton.textContent = "☀️ Light Mode";
+                } 
+                else {
+                    localStorage.setItem('darkMode', 'disabled');
+                    toggleButton.textContent = "🌙 Dark Mode";
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,11 +1,6 @@
-<head>
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-
-
+{% extends 'base.html' %}
+{% block content %}
 <div class="login-page">
-    <h1>Finance Tracker</h1>
     <h1>Log In</h1>
     {% if messages %}
         <ul class="messages">
@@ -38,3 +33,4 @@
         <p class="error-message">Log-in information is incorrect. Please try again.</p>
     {% endif %}
 </div>
+{% endblock %}
