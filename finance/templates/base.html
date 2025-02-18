@@ -11,6 +11,10 @@
 <body>
     <main>
         <button id="darkModeToggle" class="toggle-dark-mode">🌙 Dark Mode</button>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
         <div class="main-div">
             <h1>Finance Tracker</h1>
             {% if user.is_authenticated %}
@@ -18,11 +22,6 @@
             {% endif %}
             <br>
             {% block content %}{% endblock %}
-            <br>
-            <form action="{% url 'logout' %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Logout</button>
-            </form>
         </div>
     </main>
     <link rel="stylesheet" href="{% static 'style.css' %}">

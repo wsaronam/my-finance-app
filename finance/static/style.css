@@ -51,6 +51,7 @@ body.dark-mode {
     border: none;
     border-radius: 15px;
     cursor: pointer;
+    margin-bottom: 30px;
 }
 
 .error-message {
@@ -85,15 +86,6 @@ body.dark-mode {
     height: 400px;
     display: block;
     margin-bottom: 40px;
-}
-
-.add-btn {
-    margin-top: 20px;
-    margin-bottom: 40px;
-}
-
-.back-btn {
-    margin-top: 20px;
 }
 
 .login-page {
@@ -135,6 +127,24 @@ body.dark-mode {
     display: flex;
     justify-content: center;
     width: 100%; 
+}
+
+.add-transaction-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; 
+    color: white;
+    text-decoration: none; 
+    border-radius: 5px; 
+    font-size: 16px;
+    text-align: center;
+
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.add-transaction-btn:hover {
+    background-color: #0056b3;
 }
 
 .error {
