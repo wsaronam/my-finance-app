@@ -56,6 +56,7 @@ def dashboard(request):
     
     categories = [entry['category'] for entry in category_expenses]
     expenses = [float(entry['total']) for entry in category_expenses]
+    expenseSum = sum(expenses)
 
 
     # get income vs expenses per month
@@ -75,9 +76,10 @@ def dashboard(request):
 
     return render(request, 'dashboard.html', {
         'transactions': transactions,
-        'income': income,
+        'income': round(income, 2),
         'expenses': expenses,
-        'balance': balance,
+        'expenseSum': round(expenseSum, 2),
+        'balance': round(balance, 2),
         'dates': json.dumps(dates),
         'balances': json.dumps(balances),
         'categories': json.dumps(categories),

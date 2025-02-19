@@ -13,12 +13,12 @@
         <button id="darkModeToggle" class="toggle-dark-mode">🌙 Dark Mode</button>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
-            <button type="submit">Logout</button>
+            <button type="submit" style="position: fixed;">Logout</button>
         </form>
         <div class="main-div">
             <h1>Finance Tracker</h1>
             {% if user.is_authenticated %}
-            <p>Welcome, {{ user.username }}!</p>
+                <p>Welcome, {{ user.username }}!</p>
             {% endif %}
             <br>
             {% block content %}{% endblock %}
