@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <div class="login-page">
     <h1>Log In</h1>
+
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
@@ -32,5 +34,7 @@
     {% if form.errors %}
         <p class="error-message">Log-in information is incorrect. Please try again.</p>
     {% endif %}
+    
 </div>
+
 {% endblock %}

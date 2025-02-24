@@ -12,6 +12,7 @@ from collections import defaultdict
 
 
 
+# signup page ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -23,6 +24,29 @@ def signup(request):
     return render(request, 'registration/signup.html', {'form': form})
 
 
+# login stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@login_required
+def add_transaction(request):
+    if request.method == 'POST':
+        form = TransactionForm(request.POST)
+        if form.is_valid():
+            transaction = form.save(commit=False)
+            transaction.user = request.user
+            transaction.save()
+            return redirect('dashboard')
+        else:
+            print("Form is not valid:", form.errors)  # for debugging
+    else:
+        form = TransactionForm()
+    return render(request, 'add_transaction.html', {'form': form})
+
+
+# home stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+def home(request):
+    return render(request, 'home.html')
+
+
+# dashboard stuff ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @login_required
 def dashboard(request):
     transactions = Transaction.objects.filter(user=request.user).order_by('date')
@@ -45,6 +69,7 @@ def dashboard(request):
         runningBalance += transactionsDaily[date]
         dates.append(date)
         balances.append(float(runningBalance))
+
 
     # get categories for pie chart
     category_expenses = (
@@ -74,6 +99,7 @@ def dashboard(request):
         vsIncomes.append(float(data['total_income'] or 0))
         vsExpenses.append(float(data['total_expense'] or 0))
 
+
     return render(request, 'dashboard.html', {
         'transactions': transactions,
         'income': round(income, 2),
@@ -90,21 +116,3 @@ def dashboard(request):
     })
 
 
-@login_required
-def add_transaction(request):
-    if request.method == 'POST':
-        form = TransactionForm(request.POST)
-        if form.is_valid():
-            transaction = form.save(commit=False)
-            transaction.user = request.user
-            transaction.save()
-            return redirect('dashboard')
-        else:
-            print("Form is not valid:", form.errors)  # for debugging
-    else:
-        form = TransactionForm()
-    return render(request, 'add_transaction.html', {'form': form})
-
-
-def home(request):
-    return render(request, 'home.html')

@@ -32,6 +32,72 @@ body.dark-mode {
     flex-direction: column;
 }
 
+.error {
+    color: red;
+    font-size: 14px;
+    display: block;
+}
+
+.error-message {
+    color: red;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+
+
+/* log in ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.login-page {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    text-align: center; 
+    flex-direction: column;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.login-btn {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+    margin-top: 15px;
+}
+
+
+
+
+/* sign up ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+.signup-form {
+    display: flex; 
+    flex-direction: column;
+    text-align: flex-end; 
+}
+
+.signup-form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.signup-btn {
+    display: flex;
+    justify-content: center;
+    width: 100%; 
+}
+
+
+
+
+/* add transaction ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 .transaction-form {
     display: flex;
     flex-direction: column;
@@ -44,6 +110,24 @@ body.dark-mode {
     margin-bottom: 10px;
 }
 
+.add-transaction-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff; 
+    color: white;
+    text-decoration: none; 
+    border-radius: 5px; 
+    font-size: 16px;
+    text-align: center;
+
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.add-transaction-btn:hover {
+    background-color: #0056b3;
+}
+
 .submit-btn {
     background-color: #007bff;
     color: white;
@@ -54,13 +138,10 @@ body.dark-mode {
     margin-bottom: 30px;
 }
 
-.error-message {
-    color: red;
-    background-color: #ffe6e6;
-    padding: 10px;
-    border-radius: 5px;
-}
 
+
+
+/* charts ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 #balanceChart {
     max-width: 100%;
     max-height: 100%;
@@ -86,69 +167,4 @@ body.dark-mode {
     height: 400px;
     display: block;
     margin-bottom: 40px;
-}
-
-.login-page {
-    display: flex;
-    justify-content: center; 
-    align-items: center; 
-    text-align: center; 
-    flex-direction: column;
-}
-
-.login-form {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 10px;
-}
-
-.login-btn {
-    display: flex;
-    justify-content: center;
-    width: 100%; 
-    margin-top: 15px;
-}
-
-.signup-form {
-    display: flex; 
-    flex-direction: column;
-    text-align: flex-end; 
-}
-
-.signup-form-group {
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    margin-bottom: 10px;
-}
-
-.signup-btn {
-    display: flex;
-    justify-content: center;
-    width: 100%; 
-}
-
-.add-transaction-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007bff; 
-    color: white;
-    text-decoration: none; 
-    border-radius: 5px; 
-    font-size: 16px;
-    text-align: center;
-
-    margin-top: 20px;
-    margin-bottom: 40px;
-}
-
-.add-transaction-btn:hover {
-    background-color: #0056b3;
-}
-
-.error {
-    color: red;
-    font-size: 14px;
-    display: block;
 }

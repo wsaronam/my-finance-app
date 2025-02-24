@@ -15,6 +15,7 @@
 </script>
 
 <h2>Add Transaction</h2>
+
 <form method="POST" class="transaction-form">
     {% csrf_token %}
     <!-- {{ form.as_p }} -->
@@ -46,5 +47,7 @@
 
     <button type="submit" class="submit-btn">Add Transaction</button>
 </form>
+
 <a href="{% url 'dashboard' %}" class="add-transaction-btn">Back to Dashboard</a>
+
 {% endblock %}

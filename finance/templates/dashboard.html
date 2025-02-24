@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
-
 {% block content %}
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <h2>Dashboard</h2>
@@ -21,7 +21,6 @@
         <canvas id="vsChart"></canvas>
     </div>
 </div>
-
 
 
 <script>
@@ -45,8 +44,8 @@
         if (window.balanceChart instanceof Chart) {
             window.balanceChart.destroy();
         }
-
         
+        // chart for balance over time
         window.balanceChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -69,7 +68,7 @@
             }
         });
 
-
+        // chart for expenses per categories
         window.pieChart = new Chart(ctx2, {
             type: 'pie',
             data: {
@@ -90,7 +89,7 @@
             }
         });
 
-
+        // chart for monthly expenses
         window.vsChart = new Chart(ctx3, {
             type: 'bar',
             data: {
@@ -124,6 +123,6 @@
             }
         });
     });
-    
 </script>
+
 {% endblock %}

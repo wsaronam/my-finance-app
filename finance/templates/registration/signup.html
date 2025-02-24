@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+
 <h1>Sign Up</h1>
+
 <!-- {% if form.errors %}
     <ul>
         {% for field in form %}
@@ -14,6 +16,7 @@
 <div>
     <form method="post" class="signup-form">
         {% csrf_token %}
+
         <div class="signup-form-group">
             <label for="{{ form.username.id_for_label }}">Username:</label>
             {{ form.username }}
@@ -52,4 +55,5 @@
 </div>
 
 <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+
 {% endblock %}
